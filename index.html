@@ -1,14 +1,54 @@
-<!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" type="text/css" href="style.css">
-  <script type="text/javascript" src="app.js">></script>
-  <title></title>
+  <title>PDX Top 10 Breweries</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+<!--   <link rel="icon" type="image/png" href="img/logo.png" />
+ -->  <link rel="stylesheet" href="lib/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3jV7J4nAYTxsWmUoXUajVbTpmg6skrUg&libraries=places"></script>
 </head>
 <body>
-<h1></h1>
-<p>
-</p>
+  <div class="wrapper">
+    <div id="map-canvas"></div>
+    <div class="mobile-container">
+      <header>
+        <h1>
+          PDX Top 10 Breweries
+        </h1>
+        <form id="search-form" data-bind="submit: search">
+          <input id="search-input" data-bind="value: query" placeholder="Search..." autofocus />
+          <button id="search-btn" type="submit">
+            <span class="glyphicon glyphicon-search"></span>
+          </button>
+          <p id="search-summary">
+            <span data-bind="text: numCorners"></span>
+            Spot
+          </p>
+        </form>
+      </header>
+      <aside>
+        <ul data-bind="foreach: {data: filteredCornerList, as: 'corner'}" id="list">
+          <li data-bind="click: $root.selectCorner" class="corner-info">
+            <span class="corner-name" data-bind="text: corner.name"></span>
+            <div class="meetup-info">
+              <span data-bind="text: corner.meetups().length"></span>
+              <img class="meetup-icon" src="" />
+            </div>
+          </li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+  <script src="js/jquery-1.11.2.min.js"></script>
+  <script src="lib/bootstrap.min.js"></script>
+  <script src="lib/knockout-3.3.0.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    $(window).resize(function () {
+      var h = $('.wrapper').height();
+      $('#map-canvas').css('height', h);
+    }).resize();
+  </script>
 </body>
 </html>
